@@ -27,6 +27,11 @@ colnames(y) <- c("Subject_Number","Activity")
 x <- rbind(x.train,x.test)
 colnames(x) <- F
 x <- cbind(y,x)
+# v is the vector that stores the columns with measurements of means and standard deviations
+v <- c(3:8,43:48,83:88,123:128,163:168,203:204,216:217,229:230,242:241,255:256,268:273,347:352,426:431,505:506,518:519,531:532,544:545)
+# The desired output is x_out
+x_out <- x[,v]
+# Now we'll create the tinydata file which has the means of the variables over Subject_Number and Activity
 x_melt <- melt(x,id=c("Subject_Number","Activity"))
 x_cast <- dcast(x_melt, Subject_Number + Activity ~ variable,fun.aggregate=mean)
 write.table(x_cast,"./tinydata.txt")
